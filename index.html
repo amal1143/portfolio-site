@@ -451,6 +451,137 @@
 
   footer.site-footer{ padding:0 0 60px; }
 
+  /* ==========================================
+     ANTI-GRAVITY & FUTURISTIC PHYSICS STYLING
+     ========================================== */
+  #antigravity-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ambient-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(580px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(198, 255, 58, 0.05), transparent 75%);
+    transition: opacity 0.4s ease;
+  }
+
+  .wrapper, header.nav {
+    position: relative;
+    z-index: 1;
+  }
+
+  body {
+    perspective: 1200px;
+  }
+
+  /* Zero-G Floating Keyframes */
+  @keyframes zeroGravityAvatar {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.75deg); }
+    100% { transform: translateY(3px) rotate(-0.5deg); }
+  }
+
+  @keyframes zeroGravityBadge {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes zeroGravityNumber {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-6px) scale(1.05); }
+  }
+
+  /* Avatar floating & interactive glow */
+  .avatar {
+    animation: zeroGravityAvatar 6.5s ease-in-out infinite alternate;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease, border-color 0.3s ease;
+    will-change: transform;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  }
+  .avatar:hover {
+    border-color: var(--accent);
+    box-shadow: 0 22px 45px -10px rgba(0, 0, 0, 0.75), 0 0 28px rgba(198, 255, 58, 0.25);
+  }
+
+  /* Experience Card 3D Levitation */
+  .exp-card {
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.4s ease, background 0.3s ease;
+    will-change: transform;
+    background: rgba(21, 21, 21, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .exp-card:hover {
+    border-color: rgba(198, 255, 58, 0.5);
+    box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.75), 0 0 25px -5px rgba(198, 255, 58, 0.16);
+  }
+
+  /* Project Row Levitation & Arrow Drift */
+  .project {
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
+    border-radius: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    will-change: transform;
+  }
+  .project:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom-color: rgba(198, 255, 58, 0.4);
+  }
+  .project-num {
+    animation: zeroGravityNumber 5s ease-in-out infinite alternate;
+    display: inline-block;
+  }
+  .project-arrow {
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .project:hover .project-arrow {
+    transform: translate(5px, -5px);
+    color: var(--accent);
+  }
+
+  /* Micro-levitation on Interactive Badges / Tags */
+  .tag, .mini-tag {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    display: inline-block;
+  }
+  .tag:hover, .mini-tag:hover {
+    transform: translateY(-4px) scale(1.05);
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px -2px rgba(198, 255, 58, 0.25);
+    color: var(--text);
+  }
+
+  /* Buttons Anti-Gravity Lift */
+  .btn {
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+  }
+  .btn-solid:hover {
+    box-shadow: 0 10px 25px -5px rgba(198, 255, 58, 0.4);
+  }
+  .btn-outline:hover {
+    box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.12);
+  }
+
+  .eyebrow {
+    animation: zeroGravityBadge 4.5s ease-in-out infinite alternate;
+    display: inline-block;
+  }
+
   @media (max-width: 700px){
     h1.hero-name{ font-size:44px; }
     .contact-title{ font-size:32px; }
@@ -458,9 +589,22 @@
     .intro-content{ order:1; }
     .intro{ flex-direction:column; }
   }
+
+  /* Accessibility: Prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    #antigravity-canvas, .ambient-glow { display: none !important; }
+    .avatar, .eyebrow, .project-num { animation: none !important; }
+    .exp-card, .project, .tag, .mini-tag, .btn {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
 </style>
 </head>
 <body>
+
+<canvas id="antigravity-canvas"></canvas>
+<div class="ambient-glow" id="ambientGlow"></div>
 
 <header class="nav" id="siteNav">
   <a class="logo" href="#top">AMAL C</a>
@@ -702,6 +846,299 @@
 
     window.addEventListener('scroll', setActiveLink);
     setActiveLink();
+  })();
+
+  // ==========================================
+  // ANTI-GRAVITY PARTICLE & PHYSICS ENGINE
+  // ==========================================
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    var canvas = document.getElementById('antigravity-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var glow = document.getElementById('ambientGlow');
+
+    var width = 0;
+    var height = 0;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Physics parameters
+    var isMobile = window.innerWidth < 768;
+    var PARTICLE_COUNT = isMobile ? 40 : 85;
+    var REPEL_RADIUS = isMobile ? 120 : 170;
+    var REPEL_FORCE = 3.6;
+    var CONNECT_DISTANCE = 85;
+    var DAMPING = 0.94;
+
+    var mouse = {
+      x: -1000,
+      y: -1000,
+      targetX: -1000,
+      targetY: -1000,
+      active: false
+    };
+
+    var particles = [];
+    var scrollVelocity = 0;
+    var lastScrollY = window.scrollY;
+    var lastScrollTime = performance.now();
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+
+    function createParticle(initialY) {
+      var isAccent = Math.random() < 0.28;
+      var baseVy = -(Math.random() * 0.45 + 0.18);
+      return {
+        x: Math.random() * width,
+        y: typeof initialY === 'number' ? initialY : Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: baseVy,
+        baseVy: baseVy,
+        size: Math.random() * 2.2 + 0.8,
+        isAccent: isAccent,
+        color: isAccent ? '198, 255, 58' : '242, 242, 240',
+        alpha: Math.random() * 0.5 + 0.25,
+        baseAlpha: Math.random() * 0.45 + 0.25,
+        twinkleSpeed: Math.random() * 0.02 + 0.008,
+        twinklePhase: Math.random() * Math.PI * 2,
+        driftAngle: Math.random() * Math.PI * 2,
+        driftSpeed: Math.random() * 0.015 + 0.004,
+        mass: Math.random() * 0.7 + 0.65
+      };
+    }
+
+    function initParticles() {
+      particles = [];
+      for (var i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(createParticle());
+      }
+    }
+
+    // Scroll inertia & zero-g updraft
+    window.addEventListener('scroll', function () {
+      var currentY = window.scrollY;
+      var now = performance.now();
+      var dt = Math.max(now - lastScrollTime, 16);
+      var delta = currentY - lastScrollY;
+      scrollVelocity = (delta / dt) * 6;
+      lastScrollY = currentY;
+      lastScrollTime = now;
+    }, { passive: true });
+
+    // Pointer tracking
+    function updatePointer(clientX, clientY) {
+      mouse.targetX = clientX;
+      mouse.targetY = clientY;
+      mouse.active = true;
+    }
+
+    window.addEventListener('mousemove', function (e) {
+      updatePointer(e.clientX, e.clientY);
+    }, { passive: true });
+
+    window.addEventListener('mouseleave', function () {
+      mouse.active = false;
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
+    });
+
+    window.addEventListener('touchstart', function (e) {
+      if (e.touches && e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function (e) {
+      if (e.touches && e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', function () {
+      mouse.active = false;
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
+    });
+
+    // Physics Animation Loop
+    function render() {
+      // Smooth cursor lerp
+      if (mouse.active) {
+        mouse.x += (mouse.targetX - mouse.x) * 0.22;
+        mouse.y += (mouse.targetY - mouse.y) * 0.22;
+        if (glow) {
+          glow.style.setProperty('--mouse-x', mouse.x + 'px');
+          glow.style.setProperty('--mouse-y', mouse.y + 'px');
+        }
+      } else {
+        mouse.x = -1000;
+        mouse.y = -1000;
+      }
+
+      // Smooth decay of scroll velocity
+      scrollVelocity *= 0.92;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Draw energetic connective filaments
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var p1 = particles[i];
+          var p2 = particles[j];
+          var dx = p1.x - p2.x;
+          var dy = p1.y - p2.y;
+          var distSq = dx * dx + dy * dy;
+          var maxDist = CONNECT_DISTANCE;
+          if (distSq < maxDist * maxDist) {
+            var dist = Math.sqrt(distSq);
+            var filamentAlpha = (1 - dist / maxDist) * 0.16 * Math.min(p1.alpha, p2.alpha);
+            ctx.beginPath();
+            ctx.strokeStyle = (p1.isAccent || p2.isAccent)
+              ? 'rgba(198, 255, 58, ' + filamentAlpha + ')'
+              : 'rgba(242, 242, 240, ' + (filamentAlpha * 0.6) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // 2. Physics simulation & particle rendering
+      for (var k = 0; k < particles.length; k++) {
+        var p = particles[k];
+
+        // Organic wave motion
+        p.driftAngle += p.driftSpeed;
+        var driftForceX = Math.cos(p.driftAngle) * 0.2;
+
+        // Anti-gravity upward buoyancy
+        p.vy += (p.baseVy - p.vy) * 0.05;
+        p.vx += (driftForceX - p.vx) * 0.05;
+
+        // Scroll turbulence impulse
+        p.vy -= scrollVelocity * 0.035 * p.mass;
+
+        // Mouse anti-gravity repulsion field
+        if (mouse.active) {
+          var mdx = p.x - mouse.x;
+          var mdy = p.y - mouse.y;
+          var mDist = Math.hypot(mdx, mdy);
+          if (mDist < REPEL_RADIUS && mDist > 0.001) {
+            var normDist = mDist / REPEL_RADIUS;
+            var force = (1 - normDist) * REPEL_FORCE * (1.15 / p.mass);
+            p.vx += (mdx / mDist) * force;
+            p.vy += (mdy / mDist) * force;
+          }
+        }
+
+        // Velocity integration & damping
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= DAMPING;
+        p.vy *= DAMPING;
+
+        // Infinite zero-G boundaries
+        if (p.y < -20) {
+          p.y = height + 15;
+          p.x = Math.random() * width;
+          p.vx = (Math.random() - 0.5) * 0.3;
+          p.vy = p.baseVy;
+        } else if (p.y > height + 20) {
+          p.y = -15;
+        }
+
+        if (p.x < -20) p.x = width + 15;
+        if (p.x > width + 20) p.x = -15;
+
+        // Twinkle oscillation
+        p.twinklePhase += p.twinkleSpeed;
+        var currentAlpha = p.baseAlpha + Math.sin(p.twinklePhase) * 0.15;
+        p.alpha = Math.max(0.08, Math.min(0.85, currentAlpha));
+
+        // Render particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ', ' + p.alpha + ')';
+        ctx.fill();
+
+        // Glowing corona for accent nodes
+        if (p.isAccent && p.size > 1.6) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * 2.4, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(198, 255, 58, ' + (p.alpha * 0.16) + ')';
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(render);
+    }
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        resize();
+        if (particles.length === 0) initParticles();
+      }, 100);
+    });
+
+    resize();
+    initParticles();
+    requestAnimationFrame(render);
+  })();
+
+  // ==========================================
+  // DYNAMIC 3D CARD LEVITATION & TILT
+  // ==========================================
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      return;
+    }
+
+    var tiltCards = document.querySelectorAll('.exp-card, .avatar, .project');
+
+    tiltCards.forEach(function (card) {
+      var isProject = card.classList.contains('project');
+      var maxTilt = isProject ? 3.5 : 7.5;
+      var maxTranslate = isProject ? 4 : 10;
+
+      function handleMove(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        var xPercent = (x / rect.width) * 2 - 1;
+        var yPercent = (y / rect.height) * 2 - 1;
+
+        var rotX = (-yPercent * maxTilt).toFixed(2);
+        var rotY = (xPercent * maxTilt).toFixed(2);
+
+        card.style.transform = 'perspective(900px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateZ(' + maxTranslate + 'px) translateY(-3px)';
+      }
+
+      function handleLeave() {
+        card.style.transform = '';
+      }
+
+      card.addEventListener('mousemove', handleMove);
+      card.addEventListener('mouseleave', handleLeave);
+    });
   })();
 </script>
 
